@@ -1,201 +1,302 @@
-This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+# TypeScript React Native Starter
 
-Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
+## Prerequisites
 
-## Table of Contents
+Because you might be developing on one of several different platforms, targeting several different types of devices, basic setup can be involved.
+You should first ensure that you can run a plain React Native app without TypeScript.
+Follow [the instructions on the React Native website to get started](https://facebook.github.io/react-native/docs/getting-started.html).
+When you've managed to deploy to a device or emulator, you'll be ready to start a TypeScript React Native app.
 
-* [Updating to New Releases](#updating-to-new-releases)
-* [Available Scripts](#available-scripts)
-  * [npm start](#npm-start)
-  * [npm test](#npm-test)
-  * [npm run ios](#npm-run-ios)
-  * [npm run android](#npm-run-android)
-  * [npm run eject](#npm-run-eject)
-* [Writing and Running Tests](#writing-and-running-tests)
-* [Environment Variables](#environment-variables)
-  * [Configuring Packager IP Address](#configuring-packager-ip-address)
-* [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
-* [Sharing and Deployment](#sharing-and-deployment)
-  * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
-  * [Building an Expo "standalone" app](#building-an-expo-standalone-app)
-  * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
-    * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
-    * [Should I Use ExpoKit?](#should-i-use-expokit)
-* [Troubleshooting](#troubleshooting)
-  * [Networking](#networking)
-  * [iOS Simulator won't open](#ios-simulator-wont-open)
-  * [QR Code does not scan](#qr-code-does-not-scan)
+You will also need [Node.js](https://nodejs.org/en/), [NPM](https://www.npmjs.com), and [Yarn](https://yarnpkg.com/lang/en).
 
-## Updating to New Releases
+## Initializing
 
-You should only need to update the global installation of `create-react-native-app` very rarely, ideally never.
+Once you've tried scaffolding out an ordinary React Native project, you'll be ready to start adding TypeScript.
+Let's go ahead and do that.
 
-Updating the `react-native-scripts` dependency of your app should be as simple as bumping the version number in `package.json` and reinstalling your project's dependencies.
-
-Upgrading to a new version of React Native requires updating the `react-native`, `react`, and `expo` package versions, and setting the correct `sdkVersion` in `app.json`. See the [versioning guide](https://github.com/react-community/create-react-native-app/blob/master/VERSIONS.md) for up-to-date information about package version compatibility.
-
-## Available Scripts
-
-If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
-
-### `npm start`
-
-Runs your app in development mode.
-
-Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
-
-Sometimes you may need to reset or clear the React Native packager's cache. To do so, you can pass the `--reset-cache` flag to the start script:
-
-```
-npm start --reset-cache
-# or
-yarn start --reset-cache
+```sh
+react-native init MyAwesomeProject
+cd MyAwesomeProject
 ```
 
-#### `npm test`
+## Adding TypeScript
 
-Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
+The next step is to add TypeScript to your project.
+The following commands will:
 
-#### `npm run ios`
+* add TypeScript to your project
+* add [React Native TypeScript Transformer](https://github.com/ds300/react-native-typescript-transformer) to your project
+* initialize an empty TypeScript config file, which we'll configure next
+* add an empty React Native TypeScript Transformer config file, which we'll configure next
+* Adds [typings](https://github.com/DefinitelyTyped/DefinitelyTyped) for React and React Native
 
-Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
+Okay let's go ahead and run these.
 
-#### `npm run android`
-
-Like `npm start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup). We also recommend installing Genymotion as your Android emulator. Once you've finished setting up the native build environment, there are two options for making the right copy of `adb` available to Create React Native App:
-
-##### Using Android Studio's `adb`
-
-1. Make sure that you can run adb from your terminal.
-2. Open Genymotion and navigate to `Settings -> ADB`. Select “Use custom Android SDK tools” and update with your [Android SDK directory](https://stackoverflow.com/questions/25176594/android-sdk-location).
-
-##### Using Genymotion's `adb`
-
-1. Find Genymotion’s copy of adb. On macOS for example, this is normally `/Applications/Genymotion.app/Contents/MacOS/tools/`.
-2. Add the Genymotion tools directory to your path (instructions for [Mac](http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/), [Linux](http://www.computerhope.com/issues/ch001647.htm), and [Windows](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/)).
-3. Make sure that you can run adb from your terminal.
-
-#### `npm run eject`
-
-This will start the process of "ejecting" from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project.
-
-**Warning:** Running eject is a permanent action (aside from whatever version control system you use). An ejected app will require you to have an [Xcode and/or Android Studio environment](https://facebook.github.io/react-native/docs/getting-started.html) set up.
-
-## Customizing App Display Name and Icon
-
-You can edit `app.json` to include [configuration keys](https://docs.expo.io/versions/latest/guides/configuration.html) under the `expo` key.
-
-To change your app's display name, set the `expo.name` key in `app.json` to an appropriate string.
-
-To set an app icon, set the `expo.icon` key in `app.json` to be either a local path or a URL. It's recommended that you use a 512x512 png file with transparency.
-
-## Writing and Running Tests
-
-This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test` extension to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/App.test.js) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/en/getting-started.html) is also a wonderful resource, as is the [React Native testing tutorial](https://facebook.github.io/jest/docs/en/tutorial-react-native.html).
-
-## Environment Variables
-
-You can configure some of Create React Native App's behavior using environment variables.
-
-### Configuring Packager IP Address
-
-When starting your project, you'll see something like this for your project URL:
-
-```
-exp://192.168.0.2:19000
+```sh
+yarn add --dev typescript
+yarn add --dev react-native-typescript-transformer
+yarn tsc --init --pretty --jsx react
+touch rn-cli.config.js
+yarn add --dev @types/react @types/react-native
 ```
 
-The "manifest" at that URL tells the Expo app how to retrieve and load your app's JavaScript bundle, so even if you load it in the app via a URL like `exp://localhost:19000`, the Expo client app will still try to retrieve your app at the IP address that the start script provides.
+The `tsconfig.json` file contains all the settings for the TypeScript compile.
+The defaults created by the command above are mostly fine, but open the file and uncomment the following line:
 
-In some cases, this is less than ideal. This might be the case if you need to run your project inside of a virtual machine and you have to access the packager via a different IP address than the one which prints by default. In order to override the IP address or hostname that is detected by Create React Native App, you can specify your own hostname via the `REACT_NATIVE_PACKAGER_HOSTNAME` environment variable:
-
-Mac and Linux:
-
-```
-REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname' npm start
-```
-
-Windows:
-```
-set REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname'
-npm start
+```js
+{
+  ...
+  // "allowSyntheticDefaultImports": true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+  ...
+}
 ```
 
-The above example would cause the development server to listen on `exp://my-custom-ip-address-or-hostname:19000`.
+The `rn-cli.config.js` contains the settings for the React Native TypeScript Transformer.
+Open it and add the following:
 
-## Sharing and Deployment
-
-Create React Native App does a lot of work to make app setup and development simple and straightforward, but it's very difficult to do the same for deploying to Apple's App Store or Google's Play Store without relying on a hosted service.
-
-### Publishing to Expo's React Native Community
-
-Expo provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Expo client app. This requires registration for an Expo account.
-
-Install the `exp` command-line tool, and run the publish command:
-
-```
-$ npm i -g exp
-$ exp publish
+```js
+module.exports = {
+  getTransformModulePath() {
+    return require.resolve("react-native-typescript-transformer");
+  },
+  getSourceExts() {
+    return ["ts", "tsx"];
+  }
+};
 ```
 
-### Building an Expo "standalone" app
+## Migrating to TypeScript
 
-You can also use a service like [Expo's standalone builds](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) if you want to get an IPA/APK for distribution without having to build the native code yourself.
+Rename the generated `App.js` and `__tests__/App.js` files to `App.tsx`. `index.js` needs to use the `.js` extension.
+All new files should use the `.tsx` extension (or `.ts` if the file doesn't contain any JSX).
 
-### Ejecting from Create React Native App
+If you try to run the app now, you'll get an error like `object prototype may only be an object or null`.
+This is caused by a failure to import the default export from React as well as a named export on the same line.
+Open `App.tsx` and modify the import at the top of the file:
 
-If you want to build and deploy your app yourself, you'll need to eject from CRNA and use Xcode and Android Studio.
-
-This is usually as simple as running `npm run eject` in your project, which will walk you through the process. Make sure to install `react-native-cli` and follow the [native code getting started guide for React Native](https://facebook.github.io/react-native/docs/getting-started.html).
-
-#### Should I Use ExpoKit?
-
-If you have made use of Expo APIs while working on your project, then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExpoKit" which will still allow you to build your own native code and continue using the Expo APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
-
-## Troubleshooting
-
-### Networking
-
-If you're unable to load your app on your phone due to a network timeout or a refused connection, a good first step is to verify that your phone and computer are on the same network and that they can reach each other. Create React Native App needs access to ports 19000 and 19001 so ensure that your network and firewall settings allow access from your device to your computer on both of these ports.
-
-Try opening a web browser on your phone and opening the URL that the packager script prints, replacing `exp://` with `http://`. So, for example, if underneath the QR code in your terminal you see:
-
-```
-exp://192.168.0.1:19000
+```diff
+-import React, { Component } from 'react';
++import React from 'react'
++import { Component } from 'react';
 ```
 
-Try opening Safari or Chrome on your phone and loading
+Some of this has to do with differences in how Babel and TypeScript interoperate with CommonJS modules.
+In the future, the two will stabilize on the same behavior.
 
+At this point, you should be able to run the React Native app.
+
+## Adding TypeScript Testing Infrastructure
+
+Since we're using [Jest](https://github.com/facebook/jest), we'll want to add [ts-jest](https://www.npmjs.com/package/ts-jest) to our devDependencies.
+
+```sh
+yarn add --dev ts-jest
 ```
-http://192.168.0.1:19000
+
+Then, we'll open up our `package.json` and replace the `jest` field with the following:
+
+```json
+"jest": {
+  "preset": "react-native",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js"
+  ],
+  "transform": {
+    "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+    "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+  },
+  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+  "testPathIgnorePatterns": [
+    "\\.snap$",
+    "<rootDir>/node_modules/"
+  ],
+  "cacheDirectory": ".jest/cache"
+}
 ```
 
-and
+This will configure Jest to run `.ts` and `.tsx` files with `ts-jest`.
 
+## Installing Type Declaration Dependencies
+
+To get the best experience in TypeScript, we want the type-checker to understand the shape and API of our dependencies.
+Some libraries will publish their packages with `.d.ts` files (also called "typed declaration" or "type definition" files) which can describe the shape of the underlying JavaScript.
+For other libraries, we'll need to explicitly install the appropriate package in the `@types/` npm scope.
+
+For example, here we'll need types for Jest, React, and React Native, and React Test Renderer.
+
+```ts
+yarn add --dev @types/jest @types/react @types/react-native @types/react-test-renderer
 ```
-http://192.168.0.1:19001
+
+We saved these declaration file packages to our _dev_ dependencies because we're not publishing this package as a library to npm.
+If we were, we might have to add some of them as regular dependencies.
+
+You can read more [here about getting `.d.ts` files](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
+
+## Ignoring More Files
+
+For your source control, you'll want to start ignoring the `.jest` folder.
+If you're using git, we can just add entries to our `.gitignore` file.
+
+```config
+# Jest
+#
+.jest/
 ```
 
-If this works, but you're still unable to load your app by scanning the QR code, please open an issue on the [Create React Native App repository](https://github.com/react-community/create-react-native-app) with details about these steps and any other error messages you may have received.
+As a checkpoint, consider committing your files into version control.
 
-If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager. If you are using a VPN you may need to disable it.
+```sh
+git init
+git add .gitignore # import to do this first, to ignore our files
+git add .
+git commit -am "Initial commit."
+```
 
-### iOS Simulator won't open
+## Adding a Component
 
-If you're on a Mac, there are a few errors that users sometimes see when attempting to `npm run ios`:
+We can now add a component to our app.
+Let's go ahead and create a `Hello.tsx` component.
+Create a `components` directory and add the following example.
 
-* "non-zero exit code: 107"
-* "You may need to install Xcode" but it is already installed
-* and others
+```ts
+// components/Hello.tsx
+import React from "react"
+import { Button, StyleSheet, Text, View } from "react-native"
 
-There are a few steps you may want to take to troubleshoot these kinds of errors:
+export interface Props {
+  name: string
+  enthusiasmLevel?: number
+  onIncrement?: () => void
+  onDecrement?: () => void
+}
 
-1. Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
-2. Open Xcode's Preferences, the Locations tab, and make sure that the `Command Line Tools` menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run `npm/yarn run ios` after doing so.
-3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
+interface State {
+  enthusiasmLevel: number
+}
 
-### QR Code does not scan
+export class Hello extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
 
-If you're not able to scan the QR code, make sure your phone's camera is focusing correctly, and also make sure that the contrast on the two colors in your terminal is high enough. For example, WebStorm's default themes may [not have enough contrast](https://github.com/react-community/create-react-native-app/issues/49) for terminal QR codes to be scannable with the system barcode scanners that the Expo app uses.
+    if ((props.enthusiasmLevel || 0) <= 0) {
+      throw new Error("You could be a little more enthusiastic. :D")
+    }
 
-If this causes problems for you, you may want to try changing your terminal's color theme to have more contrast, or running Create React Native App from a different terminal. You can also manually enter the URL printed by the packager script in the Expo app's search bar to load it manually.
+    this.state = {
+      enthusiasmLevel: props.enthusiasmLevel || 1
+    }
+  }
+
+  onIncrement = () => this.setState({ enthusiasmLevel: this.state.enthusiasmLevel + 1 });
+  onDecrement = () => this.setState({ enthusiasmLevel: this.state.enthusiasmLevel - 1 });
+  getExclamationMarks = (numChars: number) => Array(numChars + 1).join("!")
+
+  render() {
+    return (
+      <View style={styles.root}>
+        <Text style={styles.greeting}>
+          Hello {this.props.name + this.getExclamationMarks(this.state.enthusiasmLevel)}
+        </Text>
+
+        <View style={styles.buttons}>
+          <View style={styles.button}>
+            <Button
+              title="-"
+              onPress={this.onDecrement}
+              accessibilityLabel="decrement"
+              color="red"
+            />
+          </View>
+
+          <View style={styles.button}>
+            <Button
+              title="+"
+              onPress={this.onIncrement}
+              accessibilityLabel="increment"
+              color="blue"
+            />
+          </View>
+        </View>
+      </View>
+    )
+  }
+}
+
+// styles
+
+const styles = StyleSheet.create({
+  root: {
+    alignItems: "center",
+    alignSelf: "center"
+  },
+  buttons: {
+    flexDirection: "row",
+    minHeight: 70,
+    alignItems: "stretch",
+    alignSelf: "center",
+    borderWidth: 5
+  },
+  button: {
+    flex: 1,
+    paddingVertical: 0
+  },
+  greeting: {
+    color: "#999",
+    fontWeight: "bold"
+  }
+})
+```
+
+Whoa! That's a lot, but let's break it down:
+
+* Instead of rendering HTML elements like `div`, `span`, `h1`, etc., we're rendering components like `View` and `Button`.
+  These are native components that work across different platforms.
+* Styling is specified using the `StyleSheet.create` function that React Native gives us.
+  React's StyleSheets allow us to control our layout using Flexbox, and style using other constructs similar to those in CSS stylesheets.
+
+## Adding a Component Test
+
+Now that we've got a component, let's try testing it.
+
+We already have Jest installed as a test runner.
+We're going to write snapshot tests for our components, let's add the required add-on for snapshot tests:
+
+```sh
+yarn add --dev react-addons-test-utils
+```
+
+Now let's create a `__tests__` folder in the `components` directory and add a test for `Hello.tsx`:
+
+```ts
+// components/__tests__/Hello.tsx
+import React from 'react'
+import renderer from 'react-test-renderer'
+
+import { Hello } from "../Hello"
+
+it("renders correctly with defaults", () => {
+  const button = renderer.create(<Hello name="World" enthusiasmLevel={1} />).toJSON()
+  expect(button).toMatchSnapshot()
+})
+```
+
+The first time the test is run, it will create a snapshot of the rendered component and store it in the `components/__tests__/__snapshots__/Hello.tsx.snap` file.
+When you modify your component, you'll need to update the snapshots and review the update for inadvertent changes.
+You can read more about testing React Native components [here](https://facebook.github.io/jest/docs/en/tutorial-react-native.html).
+
+## Next Steps
+
+Check out [our React TypeScript tutorial](https://github.com/Microsoft/TypeScript-React-Starter) where we also cover topics like state management with [Redux](http://redux.js.org).
+These same subjects can be applied when writing React Native apps.
+
+Additionally, you may want to look at the [ReactXP](https://microsoft.github.io/reactxp/) if you're looking for a component library written entirely in TypeScript that supports both React on the web as well as React Native.
+
+## Helpful Resources
+
+* [Create React Native TypeScript](https://github.com/mathieudutour/create-react-native-app-typescript) is a port of [Create React Native App](https://github.com/react-community/create-react-native-app) that uses TypeScript.
+* [React Native Template TypeScript](https://github.com/emin93/react-native-template-typescript) is a clean and minimalist template for a quick start with TypeScript.
+* [React Native with TypeScript] (https://medium.com/@rintoj/react-native-with-typescript-40355a90a5d7) Complete guide to convert a React Native project to TypeScript.
+
